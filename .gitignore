@@ -1,0 +1,14 @@
+## Node.js
+frontend/node_modules
+backend/node_modules
+
+## npm
+.npm
+
+# misc
+backend/.env
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
