@@ -8,7 +8,7 @@ export const getProducts = createAsyncThunk(
     return axios
       .get("/api/products")
       .then((res) => res.data)
-      .catch((err) => thunkAPI.rejectWithValue(err.message));
+      .catch((err) => thunkAPI.rejectWithValue(err.response.data.message));
   }
 );
 

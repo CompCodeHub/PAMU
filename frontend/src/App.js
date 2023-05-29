@@ -13,6 +13,7 @@ import MainHeader from "./shared/components/Navigation/MainHeader";
 import MainFooter from "./shared/components/Navigation/MainFooter";
 import ProductPage from "./products/pages/ProductPage";
 import ShoppingCartPage from "./shopping-cart/pages/ShoppingCartPage";
+import LoginPage from "./user/pages/LoginPage";
 
 const App = () => {
   return (
@@ -32,6 +33,9 @@ const App = () => {
           </Route>
           <Route path="/cart/:productId?">
             <ShoppingCartPage /> 
+          </Route>
+          <Route path="/login">
+            <LoginPage />
           </Route>
           <Redirect to="/" />
         </Switch>
