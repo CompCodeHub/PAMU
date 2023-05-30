@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
 require("dotenv").config();
-const bodyParser = require("body-parser");
 const productsRoutes = require("./routes/products-routes");
 const usersRoutes = require("./routes/users-routes");
 
@@ -10,7 +10,10 @@ const app = express();
 
 
 //middleware
-app.use(bodyParser.json())
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
 
 
 // routes
