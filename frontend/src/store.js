@@ -2,8 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import productListReducer from "./features/products/productListSlice";
 import productDetailReducer from "./features/products/productDetailSlice";
 import cartReducer from "./features/shopping-cart/cartSlice";
-import userLoginReducer from "./features/user/userLoginSlice";
-import userRegisterReducer from "./features/user/userRegisterSlice";
+import userAuthReducer from "./features/user/userAuthSlice";
 
 // Central redux store
 export const store = configureStore({
@@ -11,7 +10,6 @@ export const store = configureStore({
     productList: productListReducer,
     productDetail: productDetailReducer,
     cart: cartReducer,
-    userLogin: userLoginReducer,
-    userRegister: userRegisterReducer
+    userAuth: userAuthReducer
   },
 });

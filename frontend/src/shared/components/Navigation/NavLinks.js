@@ -2,12 +2,12 @@ import { NavLink } from "react-router-dom";
 import { Nav, NavDropdown } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { logout } from "../../../features/user/userLoginSlice";
+import { logout } from "../../../features/user/userAuthSlice";
 
 // Responsible for navigation links on main navbar
 const NavLinks = () => {
   // Access userLogin state
-  const { userInfo } = useSelector((state) => state.userLogin);
+  const { userInfo } = useSelector((state) => state.userAuth);
 
   // For dispatching actions
   const dispatch = useDispatch();

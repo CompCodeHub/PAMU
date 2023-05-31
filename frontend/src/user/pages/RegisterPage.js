@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import FormContainer from "../../shared/components/Utilities/FormContainer";
 import { Alert, Button, Col, Form, Row } from "react-bootstrap";
-import { Link, useLocation, useHistory } from "react-router-dom";
+import { useLocation, useHistory, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../features/user/userAuthSlice";
+import { register } from "../../features/user/userAuthSlice";
 import Loader from "../../shared/components/Utilities/Loader";
 
-// Responsible for login screen
-const LoginPage = () => {
+// Responsible for register screen
+const RegisterPage = () => {
+  // State for name field
+  const [name, setName] = useState("");
 
   // State for email field
   const [email, setEmail] = useState("");
@@ -37,18 +39,27 @@ const LoginPage = () => {
     }
   }, [userInfo, history, redirect]);
 
-  // Handles login form submit
-  const loginHandler = (event) => {
+  // Handles register form submit
+  const registerHandler = (event) => {
     event.preventDefault();
-    dispatch(login({ email: email, password: password }));
+    dispatch(register({ name, email, password }));
   };
 
   return (
     <FormContainer>
-      <h1>Log In</h1>
+      <h1>Sign Up</h1>
       {error && <Alert variant="danger">{error}</Alert>}
       {loading && <Loader />}
-      <Form onSubmit={loginHandler}>
+      <Form onSubmit={registerHandler}>
+        <Form.Group controlId="name">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter name"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+          ></Form.Control>
+        </Form.Group>
         <Form.Group controlId="email">
           <Form.Label>Email Address</Form.Label>
           <Form.Control
@@ -72,15 +83,15 @@ const LoginPage = () => {
           variant="outline-mdark"
           className="border-mdark mt-3"
         >
-          Log In
+          Sign Up
         </Button>
       </Form>
 
       <Row className="py-3">
         <Col>
-          New Customer?
-          <Link to={redirect ? `/register?redirect=${redirect}` : "/register"}>
-            Register
+          Already a customer?
+          <Link to={redirect ? `/login?redirect=${redirect}` : "/login"}>
+            Login
           </Link>
         </Col>
       </Row>
@@ -88,4 +99,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;
