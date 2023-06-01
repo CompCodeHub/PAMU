@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import Home from "./shared/pages/Home";
 import "./App.css";
-import "./custom.scss"
+import "./custom.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Products from "./products/pages/Products";
 import MainHeader from "./shared/components/Navigation/MainHeader";
@@ -15,12 +15,14 @@ import ProductPage from "./products/pages/ProductPage";
 import ShoppingCartPage from "./shopping-cart/pages/ShoppingCartPage";
 import LoginPage from "./user/pages/LoginPage";
 import RegisterPage from "./user/pages/RegisterPage";
+import ShippingPage from "./orders/pages/ShippingPage";
+import PrivateRoute from "./shared/components/Navigation/PrivateRoute";
+import PaymentSelectPage from "./orders/pages/PaymentSelectPage";
 
 const App = () => {
   return (
     <Router>
       <MainHeader />
-      
       <main>
         <Switch>
           <Route path="/" exact>
@@ -33,7 +35,7 @@ const App = () => {
             <ProductPage />
           </Route>
           <Route path="/cart/:productId?">
-            <ShoppingCartPage /> 
+            <ShoppingCartPage />
           </Route>
           <Route path="/login">
             <LoginPage />
@@ -41,6 +43,13 @@ const App = () => {
           <Route path="/register">
             <RegisterPage />
           </Route>
+          <PrivateRoute path="/shipping">
+            <ShippingPage />
+          </PrivateRoute>
+          <PrivateRoute path="/payment">
+            <PaymentSelectPage />
+          </PrivateRoute>
+
           <Redirect to="/" />
         </Switch>
       </main>

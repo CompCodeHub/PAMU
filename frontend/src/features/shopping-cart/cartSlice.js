@@ -1,14 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-//Get items from local storage
-const localCart = localStorage.getItem("cartItems")
-  ? JSON.parse(localStorage.getItem("cartItems"))
-  : [];
-
 // Intital state of cart
-const initialState = {
-  cartItems: localCart,
-};
+const initialState = localStorage.getItem("cart")
+  ? JSON.parse(localStorage.getItem("cart"))
+  : { cartItems: [], shippingAddress: {}, paymentMethod: "PayPal" };
 
 const cartSlice = createSlice({
   name: "cart",
@@ -27,7 +22,7 @@ const cartSlice = createSlice({
       }
 
       // Push it to local storage so it doesn't clear on refresh or exit
-      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+      localStorage.setItem("cart", JSON.stringify(state));
     },
     removeFromCart: (state, action) => {
       // Expecting product id as payload
@@ -35,7 +30,7 @@ const cartSlice = createSlice({
 
       // Filter items and update localStorage
       state.cartItems = state.cartItems.filter((item) => item.id !== productId);
-      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+      localStorage.setItem("cart", JSON.stringify(state));
     },
     changeQuantity: (state, action) => {
       // Expecting product id and quantity to set as payload
@@ -45,11 +40,21 @@ const cartSlice = createSlice({
       //Update product quantity and local storage
       const product = state.cartItems.find((item) => item.id === productId);
       product.quantity = quantity;
-      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+      localStorage.setItem("cart", JSON.stringify(state));
     },
+    saveShippingAddress: (state, action) => {
+      // Expecting shipping address as payload
+      state.shippingAddress = action.payload;
+      localStorage.setItem("cart", JSON.stringify(state));
+    },
+    savePaymentMethod: (state, action) => {
+      // Expecting payment method as payload
+      state.paymentMethod = action.payload;
+      localStorage.setItem("cart", JSON.stringify(state));
+    }
   },
 });
 
-export const { addToCart, removeFromCart, changeQuantity } = cartSlice.actions;
+export const { addToCart, removeFromCart, changeQuantity, saveShippingAddress, savePaymentMethod } = cartSlice.actions;
 
 export default cartSlice.reducer;

@@ -12,7 +12,7 @@ const ShoppingCartTotal = (props) => {
 
   // Handles checkout
   const checkoutHandler = () => {
-    history.push("/login?redirect=shpping");
+    history.push("/login?redirect=/shipping");
   };
 
   return (
