@@ -10,6 +10,7 @@ const {
   getUserById,
   updateUserById,
 } = require("../controllers/users-controllers");
+
 const { userAuth, adminAuth } = require("../middleware/authMiddleware");
 
 const router = express.Router();

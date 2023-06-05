@@ -3,6 +3,7 @@ import { Nav, NavDropdown } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../../../features/user/userAuthSlice";
+import React from "react";
 
 // Responsible for navigation links on main navbar
 const NavLinks = () => {
@@ -36,9 +37,24 @@ const NavLinks = () => {
           <NavDropdown.Item as={Link} to="/users/profile">
             Profile
           </NavDropdown.Item>
-          <NavDropdown.Item as={Link} to="">
-            My Orders
-          </NavDropdown.Item>
+          {userInfo.isAdmin ? (
+            <React.Fragment>
+            <NavDropdown.Item as={Link} to="/admin/orderList">
+             Orders
+            </NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="">
+              Products
+            </NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="">
+              Users
+            </NavDropdown.Item>
+            </React.Fragment>
+            
+          ) : (
+            <NavDropdown.Item as={Link} to="">
+              My Orders
+            </NavDropdown.Item>
+          )}
           <NavDropdown.Divider />
           <NavDropdown.Item onClick={logoutHandler}>Log Out</NavDropdown.Item>
         </NavDropdown>

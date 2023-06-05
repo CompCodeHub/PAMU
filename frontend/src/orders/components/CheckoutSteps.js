@@ -34,7 +34,7 @@ const CheckoutSteps = (props) => {
       </Nav.Item>
       <Nav.Item>
         {props.step4 ? (
-          <Nav.Link as={NavLink} to="/placeorder">
+          <Nav.Link as={NavLink} to="/checkout">
             Place Order
           </Nav.Link>
         ) : (

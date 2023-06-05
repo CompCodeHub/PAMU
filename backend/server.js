@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const productsRoutes = require("./routes/products-routes");
 const usersRoutes = require("./routes/users-routes");
+const orderRoutes = require("./routes/orders-routes");
 
 const app = express();
 
@@ -19,6 +20,10 @@ app.use(cookieParser());
 // routes
 app.use("/api/products", productsRoutes);
 app.use("/api/users", usersRoutes);
+app.use("/api/orders", orderRoutes);
+
+// Route for paypal
+app.get("/api/config/paypal", (req, res) => res.send({clientId: process.env.PAYPAL_CLIENT_ID}));
 
 
 //Handles unknown routes

@@ -3,6 +3,8 @@ import productListReducer from "./features/products/productListSlice";
 import productDetailReducer from "./features/products/productDetailSlice";
 import cartReducer from "./features/shopping-cart/cartSlice";
 import userAuthReducer from "./features/user/userAuthSlice";
+import createOrderReducer from "./features/orders/createOrderSlice";
+import orderDetailReducer from "./features/orders/orderDetailSlice";
 
 // Central redux store
 export const store = configureStore({
@@ -10,6 +12,8 @@ export const store = configureStore({
     productList: productListReducer,
     productDetail: productDetailReducer,
     cart: cartReducer,
-    userAuth: userAuthReducer
+    userAuth: userAuthReducer,
+    createOrder: createOrderReducer,
+    orderDetail: orderDetailReducer,
   },
 });
