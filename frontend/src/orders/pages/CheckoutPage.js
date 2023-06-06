@@ -17,6 +17,11 @@ import { clearCart } from "../../features/shopping-cart/cartSlice";
 
 // Responsible for displaying checkout screen
 const CheckoutPage = () => {
+  //Get access to createOrder state
+  const { order, success, loading, error } = useSelector(
+    (state) => state.createOrder
+  );
+
   // For dispatching actions
   const dispatch = useDispatch();
 
@@ -34,9 +39,6 @@ const CheckoutPage = () => {
     paymentMethod,
   } = useSelector((state) => state.cart);
 
-  //Get access to order state
-  const { order, loading, error } = useSelector((state) => state.order);
-
   // Redirect if no payment method or address
   useEffect(() => {
     if (!shippingAddress.address) {
@@ -44,7 +46,12 @@ const CheckoutPage = () => {
     } else if (!paymentMethod) {
       history.push("/payment");
     }
-  }, [shippingAddress.address, paymentMethod, history]);
+
+    // Navigate to order page if order is successful
+    if (success) {
+      history.push(`/orders/${order._id}`);
+    }
+  }, [shippingAddress.address, paymentMethod, history, order._id, success]);
 
   // Handles placing an order
   const placeOrderHandler = () => {
@@ -62,9 +69,6 @@ const CheckoutPage = () => {
 
     //clear cart items
     dispatch(clearCart());
-
-    // Navigate to order page
-    history.push(`/orders/${order._id}`);
   };
 
   return (

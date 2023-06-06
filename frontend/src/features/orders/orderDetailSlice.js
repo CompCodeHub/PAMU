@@ -20,7 +20,7 @@ const initialState = {
 };
 
 // slice for order detail
-const orderDetailSlice = createSlice({
+const orderSlice = createSlice({
   name: "orderDetail",
   initialState,
   extraReducers: (builder) => {
@@ -42,4 +42,4 @@ const orderDetailSlice = createSlice({
   },
 });
 
-export default orderDetailSlice.reducer;
+export default orderSlice.reducer;

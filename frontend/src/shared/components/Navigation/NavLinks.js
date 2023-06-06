@@ -34,24 +34,24 @@ const NavLinks = () => {
       </Nav.Link>
       {userInfo ? (
         <NavDropdown title={userInfo.name} id="username">
-          <NavDropdown.Item as={Link} to="/users/profile">
+          <NavDropdown.Item as={Link} to="/profile">
             Profile
           </NavDropdown.Item>
           {userInfo.isAdmin ? (
             <React.Fragment>
-            <NavDropdown.Item as={Link} to="/admin/orderList">
+            <NavDropdown.Item as={Link} to="/admin/orders">
              Orders
             </NavDropdown.Item>
-            <NavDropdown.Item as={Link} to="">
+            <NavDropdown.Item as={Link} to="/admin/products">
               Products
             </NavDropdown.Item>
-            <NavDropdown.Item as={Link} to="">
+            <NavDropdown.Item as={Link} to="/admin/users">
               Users
             </NavDropdown.Item>
             </React.Fragment>
             
           ) : (
-            <NavDropdown.Item as={Link} to="">
+            <NavDropdown.Item as={Link} to="/myorders">
               My Orders
             </NavDropdown.Item>
           )}

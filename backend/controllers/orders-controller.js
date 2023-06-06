@@ -101,7 +101,15 @@ const updateOrdertoDelivered = (req, res) => {
 
 // Gets all orders
 const getOrders = (req, res) => {
-  res.send("Get all orders");
+
+  // Return all orders
+  Order.find({})
+    .populate("buyer", "id name")
+    .then((orders) => res.status(200).json(orders))
+    .catch((err) =>
+      res.status(404).json({ error: "Couldn't find any orders!" })
+    );
+
 };
 
 module.exports = {

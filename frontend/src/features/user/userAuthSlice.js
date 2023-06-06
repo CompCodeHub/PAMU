@@ -50,7 +50,7 @@ const initialState = {
 };
 
 const userAuthSlice = createSlice({
-  name: "userLogin",
+  name: "userAuth",
   initialState,
   extraReducers: (builder) => {
     builder

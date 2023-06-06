@@ -22,7 +22,7 @@ const ProductPage = () => {
   // fetch product upon rendering this component
   useEffect(() => {
     dispatch(getProductById(productId));
-  }, [productId]);
+  }, [productId, dispatch]);
 
   return (
     <React.Fragment>

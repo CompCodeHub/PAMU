@@ -1,9 +1,10 @@
 import Loader from "../../shared/components/Utilities/Loader";
 import { Alert, Card, Col, Image, ListGroup, Row } from "react-bootstrap";
-import { getOrderDetails } from "../../features/orders/orderDetailSlice";
+import { getOrderDetails  } from "../../features/orders/orderDetailSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import React, { useEffect } from "react";
+import { clearOrder } from "../../features/orders/createOrderSlice";
 
 // Reponsible for rendering OrderPage
 const OrderPage = () => {
@@ -19,6 +20,10 @@ const OrderPage = () => {
   // Get order details upon loading this component
   useEffect(() => {
     dispatch(getOrderDetails(orderId));
+
+    // clear current order
+    dispatch(clearOrder());
+
   }, [dispatch, orderId]);
 
   return (
@@ -84,7 +89,8 @@ const OrderPage = () => {
                           </Link>
                         </Col>
                         <Col md={4}>
-                          {item.qty} x ${item.price} = ${item.qty * item.price}
+                          {item.quantity} x ${item.price} = $
+                          {(item.quantity * item.price).toFixed(2)}
                         </Col>
                       </Row>
                     </ListGroup.Item>

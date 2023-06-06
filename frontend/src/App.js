@@ -19,9 +19,11 @@ import ShippingPage from "./orders/pages/ShippingPage";
 import PrivateRoute from "./shared/components/Navigation/PrivateRoute";
 import PaymentSelectPage from "./orders/pages/PaymentSelectPage";
 import { useSelector } from "react-redux";
-import OrderListPage from "./orders/pages/OrderListPage";
+import OrderListPage from "./user/pages/OrderListPage";
 import CheckoutPage from "./orders/pages/CheckoutPage";
 import OrderPage from "./orders/pages/OrderPage";
+import ProfilePage from "./user/pages/ProfilePage";
+import MyOrdersPage from "./user/pages/MyOrdersPage";
 
 const App = () => {
   // Access to userAuth state
@@ -50,6 +52,12 @@ const App = () => {
           <Route path="/register">
             <RegisterPage />
           </Route>
+          <PrivateRoute path="/profile" authorized={userInfo}>
+            <ProfilePage />
+          </PrivateRoute>
+          <PrivateRoute path="/myorders" authorized={userInfo}>
+            <MyOrdersPage />
+          </PrivateRoute>
           <PrivateRoute path="/shipping" authorized={userInfo}>
             <ShippingPage />
           </PrivateRoute>
@@ -63,12 +71,11 @@ const App = () => {
             <OrderPage />
           </PrivateRoute>
           <PrivateRoute
-            path="/admin/orderList"
+            path="/admin/orders"
             authorized={userInfo && userInfo.isAdmin}
           >
             <OrderListPage />
           </PrivateRoute>
-          
 
           <Redirect to="/" />
         </Switch>
