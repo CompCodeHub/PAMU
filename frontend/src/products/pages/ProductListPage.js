@@ -6,6 +6,7 @@ import FormContainer from "../../shared/components/Utilities/FormContainer";
 import Loader from "../../shared/components/Utilities/Loader";
 import { Link, useHistory } from "react-router-dom";
 import { resetProductDetail } from "../../features/products/productDetailSlice";
+import { deleteProduct } from "../../features/products/deleteProductSlice";
 
 // Responsible for rendering productList on admin products page
 const ProductListPage = () => {
@@ -20,6 +21,13 @@ const ProductListPage = () => {
     (state) => state.productList
   );
 
+  // Get access to productDelete state
+  const {
+    success: successDelete,
+    loading: loadingDelete,
+    error: errorDelete,
+  } = useSelector((state) => state.deleteProduct);
+
   useEffect(() => {
     dispatch(getProducts());
     dispatch(resetProductDetail());
@@ -27,7 +35,10 @@ const ProductListPage = () => {
 
   // Handles deleting a product
   const deleteProductHandler = (id) => {
-    console.log(id);
+    dispatch(deleteProduct(id));
+    setTimeout(() => {
+      history.go(0);
+    }, 1000);
   };
 
   return (
@@ -46,6 +57,9 @@ const ProductListPage = () => {
           </Button>
         </Col>
       </Row>
+      {loadingDelete && <Loader />}
+      {successDelete && <Alert variant="success">Product Deleted</Alert>}
+      {errorDelete && <Alert variant="danger">{errorDelete}</Alert>}
       {loading ? (
         <Loader />
       ) : error ? (
@@ -93,14 +107,13 @@ const ProductListPage = () => {
                     </Link>{" "}
                   </td>
                   <td>
-                    <Link to={`/admin/products/${product._id}/delete`}>
-                      <Button
-                        className="border-mdark btn-sm"
-                        variant="outline-mdark"
-                      >
-                        <i className="bi bi-trash-fill"></i>
-                      </Button>
-                    </Link>
+                    <Button
+                      className="border-mdark btn-sm"
+                      variant="outline-mdark"
+                      onClick={() => deleteProductHandler(product._id)}
+                    >
+                      <i className="bi bi-trash-fill"></i>
+                    </Button>
                   </td>
                 </tr>
               ))}

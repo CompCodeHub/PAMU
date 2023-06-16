@@ -11,12 +11,14 @@ import orderListReducer from "./features/orders/orderListSlice";
 import deliverOrderReducer from "./features/orders/deliverOrderSlice";
 import createProductReducer from "./features/products/createProductSlice";
 import updateProductReducer from "./features/products/updateProductSlice";
+import deleteProductReducer from "./features/products/deleteProductSlice";
 
 // Central redux store
 export const store = configureStore({
   reducer: {
     createProduct: createProductReducer,
     updateProduct: updateProductReducer,
+    deleteProduct: deleteProductReducer,
     productList: productListReducer,
     productDetail: productDetailReducer,
     cart: cartReducer,

@@ -77,7 +77,7 @@ const deleteProductById = (req, res) => {
   Product.findByIdAndDelete(pid)
     .then((product) => {
       if (!product) {
-        res.status(400).json({ message: "Product doesn't exist" });
+        res.status(404).json({ message: "Product doesn't exist" });
       } else {
         res.status(200).json(product);
       }
