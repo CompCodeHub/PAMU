@@ -8,10 +8,15 @@ import orderDetailReducer from "./features/orders/orderDetailSlice";
 import payOrderReducer from "./features/orders/payOrderSlice";
 import userUpdateReducer from "./features/user/userUpdateSlice";
 import orderListReducer from "./features/orders/orderListSlice";
+import deliverOrderReducer from "./features/orders/deliverOrderSlice";
+import createProductReducer from "./features/products/createProductSlice";
+import updateProductReducer from "./features/products/updateProductSlice";
 
 // Central redux store
 export const store = configureStore({
   reducer: {
+    createProduct: createProductReducer,
+    updateProduct: updateProductReducer,
     productList: productListReducer,
     productDetail: productDetailReducer,
     cart: cartReducer,
@@ -20,6 +25,7 @@ export const store = configureStore({
     createOrder: createOrderReducer,
     orderDetail: orderDetailReducer,
     payOrder: payOrderReducer,
-    orderList: orderListReducer
+    orderList: orderListReducer,
+    deliverOrder: deliverOrderReducer,
   },
 });

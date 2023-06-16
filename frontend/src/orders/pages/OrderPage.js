@@ -1,10 +1,19 @@
 import Loader from "../../shared/components/Utilities/Loader";
-import { Alert, Card, Col, Image, ListGroup, Row } from "react-bootstrap";
-import { getOrderDetails  } from "../../features/orders/orderDetailSlice";
+import {
+  Alert,
+  Card,
+  Col,
+  Image,
+  ListGroup,
+  Row,
+  Button,
+} from "react-bootstrap";
+import { getOrderDetails } from "../../features/orders/orderDetailSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import React, { useEffect } from "react";
 import { clearOrder } from "../../features/orders/createOrderSlice";
+import { deliverOrder, resetDeliverOrder } from "../../features/orders/deliverOrderSlice";
 
 // Reponsible for rendering OrderPage
 const OrderPage = () => {
@@ -14,8 +23,22 @@ const OrderPage = () => {
   // For dispatching actions
   const dispatch = useDispatch();
 
+  // Get access to deliverOrder state
+  const {
+    loading: loadingDeliver,
+    error: errorDeliver,
+    success: successDeliver,
+  } = useSelector((state) => state.deliverOrder);
+
+  // Get access to userAuth state
+  const { userInfo } = useSelector((state) => state.userAuth);
+
   // Get access to orderDetail state
-  const { order, loading, error } = useSelector((state) => state.orderDetail);
+  const {
+    order,
+    loading: loadingOrder,
+    error: errorOrder,
+  } = useSelector((state) => state.orderDetail);
 
   // Get order details upon loading this component
   useEffect(() => {
@@ -23,15 +46,26 @@ const OrderPage = () => {
 
     // clear current order
     dispatch(clearOrder());
-
   }, [dispatch, orderId]);
+
+  // Handles deliver order
+  const deliverOrderHandler = () => {
+    dispatch(deliverOrder(order._id));
+
+    // Refetch order details and reset deliver order state
+    setTimeout(() => {
+      dispatch(getOrderDetails(orderId));
+      dispatch(resetDeliverOrder());
+    }
+    , 1000);
+  };
 
   return (
     <React.Fragment>
-      {loading ? (
+      {loadingOrder ? (
         <Loader />
-      ) : error ? (
-        <Alert variant="danger">{error}</Alert>
+      ) : errorOrder ? (
+        <Alert variant="danger">{errorOrder}</Alert>
       ) : (
         <React.Fragment>
           <h1>Order {order._id}</h1>
@@ -122,6 +156,24 @@ const OrderPage = () => {
                       <Col>${order.totalPrice}</Col>
                     </Row>
                   </ListGroup.Item>
+
+                  {loadingDeliver && <Loader />}
+                  {errorDeliver && (
+                    <Alert variant="danger">{errorDeliver}</Alert>
+                  )}
+                  {successDeliver && <Alert variant="success">Marked successfully</Alert>}
+                  {userInfo && userInfo.isAdmin && !order.isDelivered && (
+                    <ListGroup.Item>
+                      <Button
+                        type="button"
+                        variant="mdark"
+                        className="border-mdark"
+                        onClick={deliverOrderHandler}
+                      >
+                        Mark as Delivered
+                      </Button>
+                    </ListGroup.Item>
+                  )}
                 </ListGroup>
               </Card>
             </Col>

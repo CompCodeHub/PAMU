@@ -9,7 +9,7 @@ const getProducts = (req, res) => {
       res.status(200).json(products);
     })
     .catch((err) => {
-      res.status(404).json({message: "No products found!"})
+      res.status(404).json({ message: "No products found!" });
     });
 };
 
@@ -37,35 +37,28 @@ const getProductById = (req, res) => {
 const createProduct = (req, res) => {
   // Extract data from request body
   const {
-    creator,
     name,
     image,
     brand,
     category,
     description,
-    reviews,
-    rating,
-    numReviews,
     price,
     quantity,
   } = req.body;
 
   // Create the product
   Product.create({
-    creator,
+    creator: req.user._id,
     name,
     image,
     brand,
     category,
     description,
-    reviews,
-    rating,
-    numReviews,
     price,
     quantity,
   })
     .then((product) => {
-      res.status(200).json(product);
+      res.status(201).json(product);
     })
     .catch((err) => res.status(400).json({ error: err.message }));
 };
@@ -126,5 +119,5 @@ module.exports = {
   getProducts,
   getProductById,
   deleteProductById,
-  updateProductById
+  updateProductById,
 };

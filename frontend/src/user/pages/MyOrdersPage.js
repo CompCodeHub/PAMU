@@ -1,10 +1,10 @@
 import FormContainer from "../../shared/components/Utilities/FormContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../shared/components/Utilities/Loader";
-import { Alert, Table } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Alert } from "react-bootstrap";
 import { useEffect } from "react";
 import { getUserOrders } from "../../features/orders/orderListSlice";
+import OrderList from "../components/OrderList";
 
 // Responsible for rendering user orders list
 const MyOrdersPage = () => {
@@ -26,32 +26,7 @@ const MyOrdersPage = () => {
       ) : error ? (
         <Alert variant="danger">{error}</Alert>
       ) : (
-        <Table striped hover responsive >
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>DATE</th>
-              <th>TOTAL</th>
-              <th>STATUS</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.map((order) => (
-              <tr key={order._id}>
-                <td>{order._id}</td>
-                <td>{order.createdAt.substring(0, 10)}</td>
-                <td>{order.totalPrice}</td>
-                <td>{order.isDelivered ? "Delivered" : "Not Delivered"}</td>
-                <td>
-                  <Link to={`/orders/${order._id}`}>
-                    View Details
-                  </Link>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+        <OrderList orders={orders} />
       )}
     </FormContainer>
   );

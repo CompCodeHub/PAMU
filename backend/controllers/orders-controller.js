@@ -96,12 +96,17 @@ const updateOrdertoPaid = (req, res) => {
 
 // Updates an order to delivered
 const updateOrdertoDelivered = (req, res) => {
-  res.send("Update Order to delivered");
+
+  // find by id and update fields
+  Order.findByIdAndUpdate(req.params.id, {
+    $set: { isDelivered: true, deliveredAt: Date.now() },
+  })
+    .then((order) => res.status(200).json(order))
+    .catch((err) => res.status(400).json({ error: "Couldn't set delivery status" }));
 };
 
 // Gets all orders
 const getOrders = (req, res) => {
-
   // Return all orders
   Order.find({})
     .populate("buyer", "id name")
@@ -109,7 +114,6 @@ const getOrders = (req, res) => {
     .catch((err) =>
       res.status(404).json({ error: "Couldn't find any orders!" })
     );
-
 };
 
 module.exports = {

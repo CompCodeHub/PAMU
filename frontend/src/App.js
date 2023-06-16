@@ -8,7 +8,7 @@ import Home from "./shared/pages/Home";
 import "./App.css";
 import "./custom.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Products from "./products/pages/Products";
+import Products from "./products/pages/ProductsPage";
 import MainHeader from "./shared/components/Navigation/MainHeader";
 import MainFooter from "./shared/components/Navigation/MainFooter";
 import ProductPage from "./products/pages/ProductPage";
@@ -24,6 +24,9 @@ import CheckoutPage from "./orders/pages/CheckoutPage";
 import OrderPage from "./orders/pages/OrderPage";
 import ProfilePage from "./user/pages/ProfilePage";
 import MyOrdersPage from "./user/pages/MyOrdersPage";
+import ProductListPage from "./products/pages/ProductListPage";
+import CreateProductPage from "./products/pages/CreateProductPage";
+import EditProductPage from "./products/pages/EditProductPage";
 
 const App = () => {
   // Access to userAuth state
@@ -75,6 +78,15 @@ const App = () => {
             authorized={userInfo && userInfo.isAdmin}
           >
             <OrderListPage />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/products" authorized={userInfo && userInfo.isAdmin} exact>
+            <ProductListPage />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/products/create" authorized={userInfo && userInfo.isAdmin}>
+            <CreateProductPage />
+          </PrivateRoute>
+          <PrivateRoute path="/admin/products/:productId/edit" authorized={userInfo && userInfo.isAdmin}>
+            <EditProductPage />
           </PrivateRoute>
 
           <Redirect to="/" />

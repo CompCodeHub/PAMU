@@ -2,7 +2,7 @@ import { Container } from "react-bootstrap";
 import ProductsList from "../components/ProductsList";
 
 // Products page to display products at /products
-const Products = (props) => {
+const ProductsPage = () => {
   return (
     <Container>
       <ProductsList />
@@ -10,4 +10,4 @@ const Products = (props) => {
   );
 };
 
-export default Products;
+export default ProductsPage;
