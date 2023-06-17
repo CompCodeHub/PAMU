@@ -35,10 +35,12 @@ const ProductListPage = () => {
 
   // Handles deleting a product
   const deleteProductHandler = (id) => {
-    dispatch(deleteProduct(id));
-    setTimeout(() => {
-      history.go(0);
-    }, 1000);
+    if (window.confirm("Are you sure?")) {
+      dispatch(deleteProduct(id));
+      setTimeout(() => {
+        history.go(0);
+      }, 1000);
+    }
   };
 
   return (

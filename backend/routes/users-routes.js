@@ -6,9 +6,9 @@ const {
   getUserProfile,
   updateUserProfile,
   getUsers,
-  deleteUser,
   getUserById,
   updateUserById,
+  deleteUserById,
 } = require("../controllers/users-controllers");
 
 const { userAuth, adminAuth } = require("../middleware/authMiddleware");
@@ -33,7 +33,7 @@ router
 // DELETE /users/:id, GET /users/:id, and PUT /users/:id (All Admin protected)
 router
   .route("/:id")
-  .delete(userAuth, adminAuth, deleteUser)
+  .delete(userAuth, adminAuth, deleteUserById)
   .get(userAuth, adminAuth, getUserById)
   .put(userAuth, adminAuth, updateUserById);
 

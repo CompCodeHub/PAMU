@@ -5,9 +5,9 @@ import cartReducer from "./features/shopping-cart/cartSlice";
 import userAuthReducer from "./features/user/userAuthSlice";
 import createOrderReducer from "./features/orders/createOrderSlice";
 import orderDetailReducer from "./features/orders/orderDetailSlice";
-import payOrderReducer from "./features/orders/payOrderSlice";
 import userUpdateReducer from "./features/user/userUpdateSlice";
 import orderListReducer from "./features/orders/orderListSlice";
+import getPayPalClientIdReducer from "./features/orders/getPayPalClientIdSlice";
 import deliverOrderReducer from "./features/orders/deliverOrderSlice";
 import createProductReducer from "./features/products/createProductSlice";
 import updateProductReducer from "./features/products/updateProductSlice";
@@ -26,8 +26,8 @@ export const store = configureStore({
     userUpdate: userUpdateReducer,
     createOrder: createOrderReducer,
     orderDetail: orderDetailReducer,
-    payOrder: payOrderReducer,
     orderList: orderListReducer,
     deliverOrder: deliverOrderReducer,
+    getPayPalClientId: getPayPalClientIdReducer,
   },
 });

@@ -26,6 +26,7 @@ const createOrder = (req, res) => {
       buyer: req.user._id,
       shippingAddress,
       paymentMethod,
+      paidAt: Date.now(),
       itemsPrice,
       taxPrice,
       shippingPrice,
@@ -69,30 +70,24 @@ const getOrderById = (req, res) => {
 };
 
 // Updates an order to paid
-const updateOrdertoPaid = (req, res) => {
-  const { id } = req.params;
+// const updateOrdertoPaid = (req, res) => {
+//   const { id } = req.params;
 
-  // If id is not a valid mongoose id
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "Invalid order id!" });
-  }
+//   // If id is not a valid mongoose id
+//   if (!mongoose.Types.ObjectId.isValid(id)) {
+//     return res.status(404).json({ error: "Invalid order id!" });
+//   }
 
-  // Update fields
-  Order.findByIdAndUpdate(id, {
-    $set: {
-      isPaid: true,
-      paidAt: Date.now(),
-      paymentResult: {
-        id: req.body.id,
-        status: req.body.status,
-        update_time: req.body.update_time,
-        email_address: req.body.payer.email_address,
-      },
-    },
-  })
-    .then((order) => res.status(200).json(order))
-    .catch((err) => res.status(400).json({ error: "Couldn't update order" }));
-};
+//   // Update fields
+//   Order.findByIdAndUpdate(id, {
+//     $set: {
+//       isPaid: true,
+//       paidAt: Date.now(),
+//     },
+//   })
+//     .then((order) => res.status(200).json(order))
+//     .catch((err) => res.status(400).json({ error: "Couldn't update order" }));
+// };
 
 // Updates an order to delivered
 const updateOrdertoDelivered = (req, res) => {
@@ -120,7 +115,7 @@ module.exports = {
   createOrder,
   getUserOrders,
   getOrderById,
-  updateOrdertoPaid,
+  // updateOrdertoPaid,
   updateOrdertoDelivered,
   getOrders,
 };

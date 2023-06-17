@@ -106,22 +106,42 @@ const logoutUser = (req, res) => {
 // Gets all users
 const getUsers = async (req, res) => {
   const users = await User.find({});
-  res.json(users);
+  res.status(200).json(users);
 };
 
 // Deletes a user
-const deleteUser = async (req, res) => {
-  res.send("delete user");
+const deleteUserById = async (req, res) => {
+  User.findById(req.params.id)
+    .then((user) => {
+      // Only delete if user is not admin
+      if (user && !user.isAdmin) {
+        User.deleteOne({ _id: req.params.id })
+          .then(() => res.status(200).json({ message: "User deleted!" }))
+          .catch((err) => res.status(404).json({ error: "User not found!" }));
+      } else {
+        res.status(401).json({ error: "Cannot delete admin user!" });
+      }
+    })
+    .catch((err) => res.status(404).json({ error: "User not found!" }));
 };
 
 // Gets a user by his id
 const getUserById = async (req, res) => {
-  res.send("get user by id");
+  User.findById(req.params.id)
+    .select("-password")
+    .then((user) => res.status(200).json(user))
+    .catch((err) => res.status(404).json({ error: "User not found!" }));
 };
 
 // Updates a user by his id
 const updateUserById = async (req, res) => {
-  res.send("update user by id");
+  User.findById(req.params.id)
+    .then((user) => {
+      if(user){
+        
+      }
+    })
+    .catch((err) => res.status(404).json({ error: "User not found!" }));
 };
 
 module.exports = {
@@ -131,7 +151,7 @@ module.exports = {
   getUserProfile,
   updateUserProfile,
   getUsers,
-  deleteUser,
+  deleteUserById,
   getUserById,
   updateUserById,
 };

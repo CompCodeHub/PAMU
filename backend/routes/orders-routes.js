@@ -22,8 +22,8 @@ router.route("/myorders").get(userAuth, getUserOrders);
 // GET /orders/:id (User protected)
 router.route("/:id").get(userAuth, getOrderById);
 
-// PUT /orders/:id/pay (User protected)
-router.route("/:id/pay").put(userAuth, updateOrdertoPaid);
+// // PUT /orders/:id/pay (User protected)
+// router.route("/:id/pay").put(userAuth, updateOrdertoPaid);
 
 // PUT /orders/:id/deliver (Admin protected)
 router.route("/:id/deliver").put(userAuth, adminAuth, updateOrdertoDelivered);

@@ -23,7 +23,7 @@ app.use("/api/users", usersRoutes);
 app.use("/api/orders", orderRoutes);
 
 // Route for paypal
-app.get("/api/config/paypal", (req, res) => res.send({clientId: process.env.PAYPAL_CLIENT_ID}));
+app.get("/api/config/paypal", (req, res) => res.send({id: process.env.PAYPAL_CLIENT_ID}));
 
 
 //Handles unknown routes

@@ -13,7 +13,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import React, { useEffect } from "react";
 import { clearOrder } from "../../features/orders/createOrderSlice";
-import { deliverOrder, resetDeliverOrder } from "../../features/orders/deliverOrderSlice";
+import {
+  deliverOrder,
+  resetDeliverOrder,
+} from "../../features/orders/deliverOrderSlice";
 
 // Reponsible for rendering OrderPage
 const OrderPage = () => {
@@ -56,8 +59,7 @@ const OrderPage = () => {
     setTimeout(() => {
       dispatch(getOrderDetails(orderId));
       dispatch(resetDeliverOrder());
-    }
-    , 1000);
+    }, 1000);
   };
 
   return (
@@ -99,11 +101,7 @@ const OrderPage = () => {
                   <p>
                     <strong>Method: </strong> {order.paymentMethod}
                   </p>
-                  {order.isPaid ? (
-                    <Alert variant="success">Paid on {order.paidAt}</Alert>
-                  ) : (
-                    <Alert variant="danger">Not Paid</Alert>
-                  )}
+                  <Alert variant="success">Paid on {order.paidAt}</Alert>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   {order.items.map((item, index) => (
@@ -161,7 +159,9 @@ const OrderPage = () => {
                   {errorDeliver && (
                     <Alert variant="danger">{errorDeliver}</Alert>
                   )}
-                  {successDeliver && <Alert variant="success">Marked successfully</Alert>}
+                  {successDeliver && (
+                    <Alert variant="success">Marked successfully</Alert>
+                  )}
                   {userInfo && userInfo.isAdmin && !order.isDelivered && (
                     <ListGroup.Item>
                       <Button

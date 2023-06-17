@@ -12,8 +12,10 @@ import {
   ListGroup,
   Row,
 } from "react-bootstrap";
+import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { createOrder } from "../../features/orders/createOrderSlice";
 import { clearCart } from "../../features/shopping-cart/cartSlice";
+import { getClientId } from "../../features/orders/getPayPalClientIdSlice";
 
 // Responsible for displaying checkout screen
 const CheckoutPage = () => {
@@ -21,6 +23,16 @@ const CheckoutPage = () => {
   const { order, success, loading, error } = useSelector(
     (state) => state.createOrder
   );
+
+  // Get access to paypal state
+  const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
+
+  // Get access to clientId state
+  const {
+    clientId,
+    loading: clientIdLoading,
+    error: clientIdError,
+  } = useSelector((state) => state.getPayPalClientId);
 
   // For dispatching actions
   const dispatch = useDispatch();
@@ -51,10 +63,33 @@ const CheckoutPage = () => {
     if (success) {
       history.push(`/orders/${order._id}`);
     }
+
+    // initalize paypal script
+    dispatch(getClientId());
+    if (!clientIdError && !clientIdLoading && clientId && clientId.id) {
+      const loadPayPalScript = async () => {
+        paypalDispatch({
+          type: "resetOptions",
+          value: {
+            "client-id": clientId.id,
+            currency: "USD",
+          },
+        });
+        paypalDispatch({ type: "setLoadingStatus", value: "pending" });
+      };
+
+      // If window isn't open, open it
+      if (order && !order.isPaid) {
+        if (!window.paypal) {
+          loadPayPalScript();
+        }
+      }
+    }
+    // eslint-disable-next-line
   }, [shippingAddress.address, paymentMethod, history, order._id, success]);
 
   // Handles placing an order
-  const placeOrderHandler = () => {
+  const placeOrderHandler = (data, actions) => {
     dispatch(
       createOrder({
         items: cartItems,
@@ -69,6 +104,33 @@ const CheckoutPage = () => {
 
     //clear cart items
     dispatch(clearCart());
+  };
+
+  // Handles payment success
+  const approvePaymentHandler = (data, actions) => {
+    return actions.order.capture().then(async function (details) {
+      placeOrderHandler();
+    });
+  };
+
+  // Handles error due to payment
+  const paymentErrorHandler = (err) => {
+    alert(err.message);
+  };
+
+  // Handles create paypal order
+  const createOrderHandler = (data, actions) => {
+    return actions.order
+      .create({
+        purchase_units: [
+          {
+            amount: { value: totalPrice },
+          },
+        ],
+      })
+      .then((orderID) => {
+        return orderID;
+      });
   };
 
   return (
@@ -153,18 +215,33 @@ const CheckoutPage = () => {
                   <Col>${totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              <ListGroup.Item>
-                <Button
-                  type="button"
-                  variant="outline-mdark"
-                  size="lg"
-                  className="border-mdark"
-                  disabled={cartItems.length === 0}
-                  onClick={placeOrderHandler}
-                >
-                  Place Order
-                </Button>
-              </ListGroup.Item>
+
+              {!order.isPaid && (
+                <ListGroup.Item>
+                  {paymentMethod === "Paypal" ? (
+                    isPending ? (
+                      <Loader />
+                    ) : (
+                      <PayPalButtons
+                        createOrder={createOrderHandler}
+                        onApprove={approvePaymentHandler}
+                        onError={paymentErrorHandler}
+                      />
+                    )
+                  ) : (
+                    <Button
+                      type="button"
+                      variant="outline-mdark"
+                      size="lg"
+                      className="border-mdark"
+                      disabled={cartItems.length === 0}
+                      onClick={placeOrderHandler}
+                    >
+                      Place Order
+                    </Button>
+                  )}
+                </ListGroup.Item>
+              )}
             </ListGroup>
           </Card>
           {loading && <Loader />}
