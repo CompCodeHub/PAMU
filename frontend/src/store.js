@@ -30,4 +30,5 @@ export const store = configureStore({
     deliverOrder: deliverOrderReducer,
     getPayPalClientId: getPayPalClientIdReducer,
   },
+  devTools: process.env.NODE_ENV !== 'production',
 });
