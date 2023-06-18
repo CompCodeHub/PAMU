@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
     "data:import": "node seeder.js",
-    "data:destroy": "node seeder.js -d"
+    "data:destroy": "node seeder.js -d",
+    "build": "npm install && cd .. && cd frontend && npm install && npm run build"
   },
   "author": "Suyash Talekar",
   "license": "ISC",
