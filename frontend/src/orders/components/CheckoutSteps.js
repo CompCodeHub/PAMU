@@ -7,7 +7,7 @@ const CheckoutSteps = (props) => {
     <Nav className="justify-content-center mb-4">
       <Nav.Item>
         {props.step1 ? (
-          <Nav.Link as={NavLink} to="/login">
+          <Nav.Link as={NavLink} to="/login" className="text-mdark">
             Sign In
           </Nav.Link>
         ) : (
@@ -16,7 +16,7 @@ const CheckoutSteps = (props) => {
       </Nav.Item>
       <Nav.Item>
         {props.step2 ? (
-          <Nav.Link as={NavLink} to="/shipping">
+          <Nav.Link as={NavLink} to="/shipping" className="text-mdark">
             Shipping
           </Nav.Link>
         ) : (
@@ -25,7 +25,7 @@ const CheckoutSteps = (props) => {
       </Nav.Item>
       <Nav.Item>
         {props.step3 ? (
-          <Nav.Link as={NavLink} to="/payment">
+          <Nav.Link as={NavLink} to="/payment" className="text-mdark">
             Payment
           </Nav.Link>
         ) : (
@@ -34,7 +34,7 @@ const CheckoutSteps = (props) => {
       </Nav.Item>
       <Nav.Item>
         {props.step4 ? (
-          <Nav.Link as={NavLink} to="/checkout">
+          <Nav.Link as={NavLink} to="/checkout" className="text-mdark">
             Place Order
           </Nav.Link>
         ) : (

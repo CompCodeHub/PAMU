@@ -12,6 +12,7 @@ import deliverOrderReducer from "./features/orders/deliverOrderSlice";
 import createProductReducer from "./features/products/createProductSlice";
 import updateProductReducer from "./features/products/updateProductSlice";
 import deleteProductReducer from "./features/products/deleteProductSlice";
+import createReviewReducer  from "./features/products/createReviewSlice";
 
 // Central redux store
 export const store = configureStore({
@@ -29,6 +30,7 @@ export const store = configureStore({
     orderList: orderListReducer,
     deliverOrder: deliverOrderReducer,
     getPayPalClientId: getPayPalClientIdReducer,
+    createReview: createReviewReducer,
   },
   devTools: process.env.NODE_ENV !== 'production',
 });

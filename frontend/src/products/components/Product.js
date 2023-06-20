@@ -1,28 +1,27 @@
-import { Link } from "react-router-dom/";
+import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
+import Rating from "./Rating";
 
 //Product component renders a single product
 const Product = (props) => {
   return (
-    <Card
-      className="mt-3 rounded border border-3"
-      rounded="true"
-      bg="mlgray"
-      border="dark"
-    >
+    <Card className=" rounded h-100" rounded="true" bg="mlight">
       <Card.Body>
-        <Link to={`/products/${props.id}`}>
+        <Link to={`/products/${props.id}`} id="product-link">
           <Card.Img
             variant="top"
             src={props.image}
-            className="border border-3 border-dark"
+            className="p-0"
             rounded="true"
           />
-
-          <Card.Text className="text-mdgray mt-3 mb-1">{props.brand}</Card.Text>
-          <Card.Title>{props.name}</Card.Title>
-          <Card.Text>${props.price}</Card.Text>
         </Link>
+        <Card.Text className="text-mdgray mt-3 mb-1">{props.brand}</Card.Text>
+        <Card.Text as="div"><Rating rating={props.rating} /></Card.Text>
+        
+        <Link to={`/products/${props.id}`} id="product-link">
+          <Card.Title className="product-title">{props.name}</Card.Title>
+        </Link>
+        <Card.Text>${props.price}</Card.Text>
       </Card.Body>
     </Card>
   );

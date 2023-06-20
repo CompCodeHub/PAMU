@@ -32,7 +32,7 @@ const ProductsList = () => {
         <Container>
           <Row>
             {products.map((product) => (
-              <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
+              <Col xs={6} sm={6} md={4} lg={3} xl={3} key={product._id} className="p-2">
                 <Product
                   id={product._id}
                   image={product.image}
@@ -40,6 +40,7 @@ const ProductsList = () => {
                   brand={product.brand}
                   price={product.price}
                   description={product.description}
+                  rating={product.rating}
                 />
               </Col>
             ))}

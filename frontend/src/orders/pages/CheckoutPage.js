@@ -170,7 +170,7 @@ const CheckoutPage = () => {
                           />
                         </Col>
                         <Col>
-                          <Link to={`/products/${item.id}`}>{item.name}</Link>
+                          <Link to={`/products/${item.id}`} id="product-link">{item.name}</Link>
                         </Col>
                         <Col md={4}>
                           {item.quantity} x ${item.price} = $
@@ -218,7 +218,7 @@ const CheckoutPage = () => {
 
               {!order.isPaid && (
                 <ListGroup.Item>
-                  {paymentMethod === "Paypal" ? (
+                  {paymentMethod === "Paypal or Credit Card" ? (
                     isPending ? (
                       <Loader />
                     ) : (

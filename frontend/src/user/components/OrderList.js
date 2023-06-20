@@ -22,7 +22,7 @@ const OrderList = (props) => {
                 <td>{order.totalPrice}</td>
                 <td>{order.isDelivered ? "Delivered" : "Not Delivered"}</td>
                 <td>
-                  <Link to={`/orders/${order._id}`}>
+                  <Link to={`/orders/${order._id}`} style={{ color: "#212A3E" }}>
                     View Details
                   </Link>
                 </td>

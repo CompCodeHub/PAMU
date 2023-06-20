@@ -35,7 +35,7 @@ const updateCartState = (state) => {
 // Intital state of cart
 const initialState = localStorage.getItem("cart")
   ? JSON.parse(localStorage.getItem("cart"))
-  : { cartItems: [], shippingAddress: {}, paymentMethod: "PayPal" };
+  : { cartItems: [], shippingAddress: {}, paymentMethod: "Paypal" };
 
 const cartSlice = createSlice({
   name: "cart",

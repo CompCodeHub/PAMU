@@ -9,7 +9,7 @@ import { savePaymentMethod } from "../../features/shopping-cart/cartSlice";
 // Responsible for rendering payment select
 const PaymentSelectPage = () => {
   // state for payment method
-  const [paymentMethod, setPaymentMethod] = useState("Paypal");
+  const [paymentMethod, setPaymentMethod] = useState("Paypal or Credit Card");
 
   // For dispatching actions
   const dispatch = useDispatch();
@@ -42,17 +42,9 @@ const PaymentSelectPage = () => {
           <Form.Check
             type="radio"
             id="PayPal"
-            label="Paypal"
+            label="Paypal or Credit Card"
             value="Paypal"
-            checked={paymentMethod === "Paypal"}
-            onChange={(event) => setPaymentMethod(event.target.value)}
-          />
-          <Form.Check
-            type="radio"
-            id="Credit Card"
-            label="Credit Card"
-            value="Credit Card"
-            checked={paymentMethod === "Credit Card"}
+            checked={paymentMethod === "Paypal or Credit Card"}
             onChange={(event) => setPaymentMethod(event.target.value)}
           />
         </Form.Group>

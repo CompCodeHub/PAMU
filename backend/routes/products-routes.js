@@ -4,8 +4,9 @@ const {
   getProducts,
   getProductById,
   deleteProductById,
-  updateProductById
+  updateProductById,
 } = require("../controllers/products-controller");
+const { createReview } = require("../controllers/reviews-controller");
 const { userAuth, adminAuth } = require("../middleware/authMiddleware");
 
 const router = express.Router();
@@ -14,9 +15,15 @@ const router = express.Router();
 router.route("/").get(getProducts).post(userAuth, adminAuth, createProduct);
 
 // GET /products/:pid and PATCH /products/:pid
-router.route("/:pid").get(getProductById).put(userAuth, adminAuth, updateProductById);
+router
+  .route("/:pid")
+  .get(getProductById)
+  .put(userAuth, adminAuth, updateProductById);
 
 // DELETE /products/:pid
 router.delete("/:pid", deleteProductById);
+
+// POST /products/:pid/reviews
+router.route("/:pid/reviews").post(userAuth, createReview);
 
 module.exports = router;

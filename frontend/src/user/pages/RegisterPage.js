@@ -90,7 +90,7 @@ const RegisterPage = () => {
       <Row className="py-3">
         <Col>
           Already a customer?
-          <Link to={redirect ? `/login?redirect=${redirect}` : "/login"}>
+          <Link to={redirect ? `/login?redirect=${redirect}` : "/login"} style={{color: "#212A3E"}}>
             Login
           </Link>
         </Col>
