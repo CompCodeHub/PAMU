@@ -14,3 +14,15 @@ a.dropdown-item:active {
   text-overflow: ellipsis; /* Add ellipsis for long text */
   white-space: nowrap; /* Prevent wrapping */
 }
+
+.pagination li.page-item.active .page-link {
+  color: #f1f6f9;
+  background: #212a3e;
+  border: none;
+}
+
+.pagination li.page-item .page-link {
+  color: #212a3e;
+  background: #f1f6f9;
+  border: none;
+}

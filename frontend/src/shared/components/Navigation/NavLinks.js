@@ -23,7 +23,7 @@ const NavLinks = () => {
       <Nav.Link as={NavLink} to={"/"} exact>
         Home
       </Nav.Link>
-      <Nav.Link as={NavLink} to={"/products"} exact>
+      <Nav.Link as={NavLink} to={"/products/page/1"} exact>
         Shop
       </Nav.Link>
       <Nav.Link as={NavLink} to={"/about"}>
@@ -42,7 +42,7 @@ const NavLinks = () => {
             <NavDropdown.Item as={Link} to="/admin/orders">
              Orders
             </NavDropdown.Item>
-            <NavDropdown.Item as={Link} to="/admin/products">
+            <NavDropdown.Item as={Link} to="/admin/products/page/1">
               Products
             </NavDropdown.Item>
             <NavDropdown.Item as={Link} to="/admin/users">

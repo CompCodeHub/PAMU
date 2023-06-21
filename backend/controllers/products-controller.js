@@ -2,14 +2,28 @@ const mongoose = require("mongoose");
 const Product = require("../models/productModel");
 
 // Gets all products
-const getProducts = (req, res) => {
-  //Find all products
-  Product.find({})
+const getProducts = async (req, res) => {
+  const pageSize = 2;
+  const page = Number(req.query.pageNumber) || 1; // get pagenumber
+  const keyword = req.query.keyword
+    ? {
+        name: { $regex: req.query.keyword, $options: "i" },
+      }
+    : {}; // get keyword
+  const count = await Product.countDocuments({...keyword}); // count products with potential keyword
+
+  //Find all products with potential keyword
+  Product.find({...keyword})
+    .limit(pageSize)
+    .skip(pageSize * (page - 1))
     .then((products) => {
-      res.status(200).json(products);
+      // Send products, page number, and number of pages
+      return res
+        .status(200)
+        .json({ products, page, pages: Math.ceil(count / pageSize) });
     })
     .catch((err) => {
-      res.status(404).json({ message: "No products found!" });
+      return res.status(404).json({ message: "No products found!" });
     });
 };
 
@@ -36,15 +50,8 @@ const getProductById = (req, res) => {
 // Creates a product
 const createProduct = (req, res) => {
   // Extract data from request body
-  const {
-    name,
-    image,
-    brand,
-    category,
-    description,
-    price,
-    quantity,
-  } = req.body;
+  const { name, image, brand, category, description, price, quantity } =
+    req.body;
 
   // Create the product
   Product.create({

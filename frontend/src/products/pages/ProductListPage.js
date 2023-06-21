@@ -11,9 +11,10 @@ import {
   Table,
 } from "react-bootstrap";
 import Loader from "../../shared/components/Utilities/Loader";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { resetProductDetail } from "../../features/products/productDetailSlice";
 import { deleteProduct } from "../../features/products/deleteProductSlice";
+import Paginate from "../../shared/components/Navigation/Paginate";
 
 // Responsible for rendering productList on admin products page
 const ProductListPage = () => {
@@ -23,8 +24,11 @@ const ProductListPage = () => {
   // For redirecting
   const history = useHistory();
 
+  //Get pageNumber from params
+  const pageNumber = useParams().pageNumber || 1;
+
   // Get access to productList state
-  const { products, loading, error } = useSelector(
+  const { data, loading, error } = useSelector(
     (state) => state.productList
   );
 
@@ -36,9 +40,9 @@ const ProductListPage = () => {
   } = useSelector((state) => state.deleteProduct);
 
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getProducts({ pageNumber }));
     dispatch(resetProductDetail());
-  }, [dispatch]);
+  }, [dispatch, pageNumber]);
 
   // Handles deleting a product
   const deleteProductHandler = (id) => {
@@ -91,7 +95,7 @@ const ProductListPage = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {products.map((product) => (
+                  {data.products.map((product) => (
                     <tr key={product._id}>
                       <td>
                         <Image
@@ -133,6 +137,7 @@ const ProductListPage = () => {
               .
             </Col>
           </Row>
+          <Paginate pages={data.pages} page={data.page} isAdmin={true} />
         </React.Fragment>
       )}
     </Container>

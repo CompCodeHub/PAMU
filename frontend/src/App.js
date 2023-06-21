@@ -40,7 +40,13 @@ const App = () => {
           <Route path="/" exact>
             <Home />
           </Route>
-          <Route path="/products" exact>
+          <Route path="/products/search/:keyword" exact>
+            <Products />
+          </Route>
+          <Route path="/products/search/:keyword/page/:pageNumber" exact>
+            <Products />
+          </Route>
+          <Route path="/products/page/:pageNumber" exact>
             <Products />
           </Route>
           <Route path="/products/:productId" exact>
@@ -79,7 +85,7 @@ const App = () => {
           >
             <OrderListPage />
           </PrivateRoute>
-          <PrivateRoute path="/admin/products" authorized={userInfo && userInfo.isAdmin} exact>
+          <PrivateRoute path="/admin/products/page/:pageNumber" authorized={userInfo && userInfo.isAdmin} exact>
             <ProductListPage />
           </PrivateRoute>
           <PrivateRoute path="/admin/products/create" authorized={userInfo && userInfo.isAdmin}>

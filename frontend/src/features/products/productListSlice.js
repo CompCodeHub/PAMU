@@ -4,9 +4,9 @@ import axios from "axios";
 // async get products
 export const getProducts = createAsyncThunk(
   "productList/getProducts",
-  (data, thunkAPI) => {
+  ({ keyword, pageNumber }, thunkAPI) => {
     return axios
-      .get("/api/products")
+      .get("/api/products", { params: { keyword, pageNumber } })
       .then((res) => res.data)
       .catch((err) => thunkAPI.rejectWithValue(err.response.data.message));
   }
@@ -14,7 +14,11 @@ export const getProducts = createAsyncThunk(
 
 // initial state for productList
 const initialState = {
-  products: [],
+  data: {
+    products: [],
+    page: 1,
+    pages: 1,
+  },
   loading: true,
   error: null,
 };
@@ -30,7 +34,7 @@ const productListSlice = createSlice({
       .addCase(getProducts.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-        state.products = action.payload;
+        state.data = action.payload;
       })
       .addCase(getProducts.rejected, (state, action) => {
         state.loading = false;
