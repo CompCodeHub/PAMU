@@ -5,6 +5,7 @@ import { Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { savePaymentMethod } from "../../features/shopping-cart/cartSlice";
+import Meta from "../../shared/components/Utilities/Meta";
 
 // Responsible for rendering payment select
 const PaymentSelectPage = () => {
@@ -35,6 +36,7 @@ const PaymentSelectPage = () => {
 
   return (
     <FormContainer>
+      <Meta title="Payment" />
       <CheckoutSteps step1 step2 step3 />
       <Form onSubmit={paymentMethodHandler}>
         <Form.Group>

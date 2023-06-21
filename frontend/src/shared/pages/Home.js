@@ -1,12 +1,14 @@
 import React from "react";
 import ProductsList from "../../products/components/ProductsList";
 import { Container, Row, Image } from "react-bootstrap";
+import Meta from "../components/Utilities/Meta";
 
 // Home page for the app
 const Home = () => {
 
   return (
     <React.Fragment>
+      <Meta title="Home" />
       <Container>
         <Row>
           <Image

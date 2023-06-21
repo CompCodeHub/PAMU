@@ -18,9 +18,10 @@ const MainNavigation = (props) => {
           <Navbar.Brand as={Link} to="/">
             PAMU
           </Navbar.Brand>
+          
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <SearchBox />
           <Navbar.Collapse id="basic-navbar-nav">
-            <SearchBox />
             <NavLinks />
           </Navbar.Collapse>
         </Container>

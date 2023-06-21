@@ -5,10 +5,10 @@ import { Link, useLocation, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../features/user/userAuthSlice";
 import Loader from "../../shared/components/Utilities/Loader";
+import Meta from "../../shared/components/Utilities/Meta";
 
 // Responsible for login screen
 const LoginPage = () => {
-
   // State for email field
   const [email, setEmail] = useState("");
 
@@ -45,6 +45,7 @@ const LoginPage = () => {
 
   return (
     <FormContainer>
+      <Meta title="Log In" />
       <h1>Log In</h1>
       {error && <Alert variant="danger">{error}</Alert>}
       {loading && <Loader />}
@@ -79,7 +80,10 @@ const LoginPage = () => {
       <Row className="py-3">
         <Col>
           New Customer?
-          <Link to={redirect ? `/register?redirect=${redirect}` : "/register"} style={{color: "#212A3E"}}>
+          <Link
+            to={redirect ? `/register?redirect=${redirect}` : "/register"}
+            style={{ color: "#212A3E" }}
+          >
             Register
           </Link>
         </Col>

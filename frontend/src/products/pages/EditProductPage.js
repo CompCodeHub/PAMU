@@ -10,6 +10,7 @@ import {
   updateProduct,
 } from "../../features/products/updateProductSlice";
 import { getProductById } from "../../features/products/productDetailSlice";
+import Meta from "../../shared/components/Utilities/Meta";
 
 // Responsible for rendering edit product page
 const EditProductPage = () => {
@@ -109,6 +110,7 @@ const EditProductPage = () => {
         <Alert variant="danger">{errorProductDetail}</Alert>
       ) : (
         <React.Fragment>
+          <Meta title="Edit Product" />
           <h1>Edit Product</h1>
           <Form onSubmit={editProductHandler}>
             <Form.Group controlId="name">

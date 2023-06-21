@@ -28,7 +28,7 @@ const SearchBox = () => {
     }
 
   return (
-    <Form className="d-flex ms-5" onSubmit={searchHandler}>
+    <Form className="d-flex ms-2 my-2" onSubmit={searchHandler}>
       <Form.Control
         type="search"
         placeholder="Search"

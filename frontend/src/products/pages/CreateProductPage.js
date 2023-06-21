@@ -9,6 +9,7 @@ import {
   createProduct,
   resetCreateProduct,
 } from "../../features/products/createProductSlice";
+import Meta from "../../shared/components/Utilities/Meta";
 
 // Responsible for rendering create product page
 const CreateProductPage = () => {
@@ -75,6 +76,7 @@ const CreateProductPage = () => {
         <Alert variant="success">Product created successfully!</Alert>
       )}
       {error && <Alert variant="danger">{error}</Alert>}
+      <Meta title="Create Product" />
       <h1>Create Product</h1>
       <Form onSubmit={createProductHandler}>
         <Form.Group controlId="name">

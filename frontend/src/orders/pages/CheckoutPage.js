@@ -16,6 +16,7 @@ import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { createOrder } from "../../features/orders/createOrderSlice";
 import { clearCart } from "../../features/shopping-cart/cartSlice";
 import { getClientId } from "../../features/orders/getPayPalClientIdSlice";
+import Meta from "../../shared/components/Utilities/Meta";
 
 // Responsible for displaying checkout screen
 const CheckoutPage = () => {
@@ -135,6 +136,7 @@ const CheckoutPage = () => {
 
   return (
     <React.Fragment>
+      <Meta title="Checkout" />
       <CheckoutSteps step1 step2 step3 step4 />
       <Row>
         <Col md={8}>

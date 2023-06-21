@@ -5,6 +5,7 @@ import FormContainer from '../../shared/components/Utilities/FormContainer';
 import Loader from '../../shared/components/Utilities/Loader';
 import { Alert } from 'react-bootstrap';
 import OrderList from '../components/OrderList';
+import Meta from '../../shared/components/Utilities/Meta';
 
 // Responsible for rendering orderlist for admin
 const OrderListPage = () =>{
@@ -20,6 +21,7 @@ const OrderListPage = () =>{
     }, [dispatch])
 
    return <FormContainer>
+   <Meta title="All Orders" />
     <h2>Orders</h2>
     {loading ? (
         <Loader />

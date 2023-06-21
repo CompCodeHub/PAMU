@@ -4,6 +4,7 @@ import FormContainer from "../../shared/components/Utilities/FormContainer";
 import { Alert, Button, Form } from "react-bootstrap";
 import Loader from "../../shared/components/Utilities/Loader";
 import { updateUser } from "../../features/user/userUpdateSlice";
+import Meta from "../../shared/components/Utilities/Meta";
 
 // Responsible for displaying the user profile page.
 const ProfilePage = () => {
@@ -20,9 +21,7 @@ const ProfilePage = () => {
   const { userInfo } = useSelector((state) => state.userAuth);
 
   // For getting the updated user state
-  const { updatedUserInfo, loading, error } = useSelector(
-    (state) => state.userUpdate
-  );
+  const { loading, error } = useSelector((state) => state.userUpdate);
 
   useEffect(() => {
     if (userInfo) {
@@ -46,6 +45,7 @@ const ProfilePage = () => {
     <FormContainer>
       {loading && <Loader />}
       {error && <Alert variant="danger">{error}</Alert>}
+      <Meta title="Profile" />
       <h2>Profile</h2>
       <Form onSubmit={updateUserHandler}>
         <Form.Group controlId="name" className="mt-3">

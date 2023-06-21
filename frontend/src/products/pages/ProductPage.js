@@ -6,6 +6,7 @@ import ProductDetails from "../components/ProductDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductById } from "../../features/products/productDetailSlice";
 import Loader from "../../shared/components/Utilities/Loader";
+import Meta from "../../shared/components/Utilities/Meta";
 
 // Responsible for individual product page
 const ProductPage = () => {
@@ -26,6 +27,7 @@ const ProductPage = () => {
 
   return (
     <React.Fragment>
+      <Meta title={product.name} />
       <Container>
         <Button
           type="button"

@@ -5,6 +5,7 @@ import { useLocation, useHistory, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../features/user/userAuthSlice";
 import Loader from "../../shared/components/Utilities/Loader";
+import Meta from "../../shared/components/Utilities/Meta";
 
 // Responsible for register screen
 const RegisterPage = () => {
@@ -47,6 +48,7 @@ const RegisterPage = () => {
 
   return (
     <FormContainer>
+      <Meta title="Register" />
       <h1>Sign Up</h1>
       {error && <Alert variant="danger">{error}</Alert>}
       {loading && <Loader />}

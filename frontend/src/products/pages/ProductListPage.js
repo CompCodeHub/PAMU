@@ -15,6 +15,7 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import { resetProductDetail } from "../../features/products/productDetailSlice";
 import { deleteProduct } from "../../features/products/deleteProductSlice";
 import Paginate from "../../shared/components/Navigation/Paginate";
+import Meta from "../../shared/components/Utilities/Meta";
 
 // Responsible for rendering productList on admin products page
 const ProductListPage = () => {
@@ -56,6 +57,7 @@ const ProductListPage = () => {
 
   return (
     <Container className="mt-5">
+      <Meta title="All Products" />
       <Row className="justify-content-center">
         <Col xs={6} sm={6} md={6} lg={5} xl={4} >
           <h1>Products</h1>

@@ -17,6 +17,7 @@ import {
   deliverOrder,
   resetDeliverOrder,
 } from "../../features/orders/deliverOrderSlice";
+import Meta from "../../shared/components/Utilities/Meta";
 
 // Reponsible for rendering OrderPage
 const OrderPage = () => {
@@ -70,6 +71,7 @@ const OrderPage = () => {
         <Alert variant="danger">{errorOrder}</Alert>
       ) : (
         <React.Fragment>
+          <Meta title={`Order ${order._id}`} />
           <h1>Order {order._id}</h1>
           <Row>
             <Col md={8}>

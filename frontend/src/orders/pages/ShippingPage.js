@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { saveShippingAddress } from "../../features/shopping-cart/cartSlice";
 import { useHistory } from "react-router-dom";
 import CheckoutSteps from "../components/CheckoutSteps";
+import Meta from "../../shared/components/Utilities/Meta";
 
 // Responsible for shipping page
 const ShippingPage = () => {
@@ -43,6 +44,7 @@ const ShippingPage = () => {
 
   return (
     <FormContainer>
+    <Meta title="Shipping" />
     <CheckoutSteps step1 step2 />
       <h1>Shipping Address</h1>
       <Form onSubmit={shippingHandler}>

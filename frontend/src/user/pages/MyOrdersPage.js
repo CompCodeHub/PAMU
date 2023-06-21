@@ -5,6 +5,7 @@ import { Alert } from "react-bootstrap";
 import { useEffect } from "react";
 import { getUserOrders } from "../../features/orders/orderListSlice";
 import OrderList from "../components/OrderList";
+import Meta from "../../shared/components/Utilities/Meta";
 
 // Responsible for rendering user orders list
 const MyOrdersPage = () => {
@@ -20,6 +21,7 @@ const MyOrdersPage = () => {
 
   return (
     <FormContainer>
+      <Meta title="My Orders" />
       <h2>Your Orders</h2>
       {loading ? (
         <Loader />
