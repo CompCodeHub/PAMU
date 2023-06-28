@@ -4,13 +4,13 @@ import FormContainer from "../../shared/components/Utilities/FormContainer";
 import Loader from "../../shared/components/Utilities/Loader";
 import { Alert, Button, Form } from "react-bootstrap";
 import { useParams, useHistory } from "react-router-dom";
-import { convertToBase64 } from "../../shared/components/Utilities/imageConverter";
 import {
   resetUpdateProduct,
   updateProduct,
 } from "../../features/products/updateProductSlice";
 import { getProductById } from "../../features/products/productDetailSlice";
 import Meta from "../../shared/components/Utilities/Meta";
+import axios from "axios";
 
 // Responsible for rendering edit product page
 const EditProductPage = () => {
@@ -23,7 +23,7 @@ const EditProductPage = () => {
   // State variables for product info
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState({});
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(0);
   const [category, setCategory] = useState("");
@@ -81,20 +81,45 @@ const EditProductPage = () => {
     );
 
     setTimeout(() => {
-      history.push("/admin/products");
+      history.push("/admin/products/page/1");
     }, 1000);
   };
 
   // Handles uploading image
   const imageUploadHandler = async (e) => {
     const file = e.target.files[0];
-    const base64 = await convertToBase64(file);
-    setImage(base64);
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      // Set config
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+      const res = await axios.post("/api/uploads/image", formData, config);
+
+      // set local state
+      setImage({
+        id: res.data.id,
+        url: res.data.url,
+      });
+    } catch (error) {
+      console.log(error);
+    
+    }
   };
 
   // Redirects to product list page
-  const cancelHandler = () => {
-    history.push("/admin/products");
+  const cancelHandler = async () => {
+    // Send delete request
+    try {
+      await axios.delete(`/api/uploads/image/${image.id}`);
+      setImage({});
+    }catch (error) {
+      console.log(error);
+    }
   };
 
   return (

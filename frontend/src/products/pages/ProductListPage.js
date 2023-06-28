@@ -101,7 +101,7 @@ const ProductListPage = () => {
                     <tr key={product._id}>
                       <td>
                         <Image
-                          src={product.image}
+                          src={product.image.url}
                           alt={product.name}
                           fluid
                           rounded

@@ -56,7 +56,7 @@ const ProductsList = () => {
               >
                 <Product
                   id={product._id}
-                  image={product.image}
+                  image={product.image.url}
                   name={product.name}
                   brand={product.brand}
                   price={product.price}

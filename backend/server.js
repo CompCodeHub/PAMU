@@ -6,6 +6,7 @@ require("dotenv").config();
 const productsRoutes = require("./routes/products-routes");
 const usersRoutes = require("./routes/users-routes");
 const orderRoutes = require("./routes/orders-routes");
+const uploadRoutes = require("./routes/uploads-routes");
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(cookieParser());
 app.use("/api/products", productsRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/uploads", uploadRoutes);
 
 // Route for paypal
 app.get("/api/config/paypal", (req, res) =>
