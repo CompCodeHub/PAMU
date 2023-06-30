@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 // async login
 export const login = createAsyncThunk(
@@ -31,20 +32,30 @@ export const register = createAsyncThunk(
   ({ name, email, password }, thunkAPI) => {
     // Make a register request
     return axios
-      .post("/api/users", {name, email, password})
+      .post("/api/users", { name, email, password })
       .then((res) => res.data)
       .catch((err) => thunkAPI.rejectWithValue(err.response.data.error));
   }
 );
 
-// Get userInfo from local storage if if exists
-const localUserInfo = localStorage.getItem("userInfo")
-  ? JSON.parse(localStorage.getItem("userInfo"))
-  : null;
+// Logs in user based on cookie
+const getUserInfo = () => {
+  if (Cookies.get("jwt")) {
+    if(localStorage.getItem("userInfo")){
+      return JSON.parse(localStorage.getItem("userInfo"));
+    }
+  } else {
+    if (localStorage.getItem("userInfo")) {
+      localStorage.removeItem("userInfo");
+    }
+
+    return null;
+  }
+};
 
 // initial state for user
 const initialState = {
-  userInfo: localUserInfo,
+  userInfo: getUserInfo(),
   error: null,
   loading: false,
 };

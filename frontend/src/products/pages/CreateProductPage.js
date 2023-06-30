@@ -30,6 +30,7 @@ const CreateProductPage = () => {
 
   useEffect(() => {
     dispatch(resetCreateProduct());
+    
   }, [dispatch]);
 
   // Get access to create product state
